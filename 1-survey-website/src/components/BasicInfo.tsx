@@ -1,6 +1,6 @@
 const BasicInfo = () => {
   return (
-    <fieldset >
+    <fieldset className="fieldset flex flex-col gap-3 bg-base-200 border-base-300 w-full max-w-md p-4 rounded">
       <h1 className="text-xl mb-2">Basic Details</h1>
 
       <label htmlFor="name">
