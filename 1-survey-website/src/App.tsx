@@ -1,6 +1,10 @@
+import MultiStepForm from "./components/MultiStepForm";
+
 const App = () => {
   return (
-    <h1>Survey Website</h1>
+    <main className='h-screen w-screen flex flex-col justify-center items-center'>
+      <MultiStepForm />
+    </main>
   );
 };
 
