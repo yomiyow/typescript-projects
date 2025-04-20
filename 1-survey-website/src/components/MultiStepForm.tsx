@@ -8,27 +8,22 @@ export interface FormData {
   name: string;
   email: string;
   contactNo: number | '';
-  questions: {
+  questions: Array<{
     questionId: number;
     answer: string;
-  }[];
+  }>;
 }
 
 const initialFormData: FormData = {
   name: '',
   email: '',
   contactNo: '',
-  questions: [
-    { questionId: 0, answer: '' }
-  ]
-}
+  questions: []
+};
 
 const MultiStepForm = () => {
   const [step, setStep] = useState<number>(1);
   const [formData, setFormData] = useState<FormData>(initialFormData);
-
-  console.log(step);
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, questionId?: number) => {
     const { name, value } = e.target;
@@ -54,7 +49,7 @@ const MultiStepForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    nextStep();
+    handleNextStep();
   }
 
   return (
@@ -66,7 +61,7 @@ const MultiStepForm = () => {
           case 2:
             return <Questions formData={formData} onFormDataChange={handleChange} onStepChange={handleNextStep} />;
           case 3:
-            return <EnteredDetails onStepChange={handleNextStep} />;
+            return <EnteredDetails formData={formData} onStepChange={handleNextStep} />;
           case 4:
             return <ThankYou />;
           default:
