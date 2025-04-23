@@ -1,10 +1,8 @@
 import './App.css';
+import TextEditor from './TextEditor';
 
 function App() {
-
-  return (
-    <div>Text Editor</div>
-  );
+  return <TextEditor />;
 };
 
 export default App;
