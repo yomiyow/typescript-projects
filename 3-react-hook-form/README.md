@@ -12,4 +12,4 @@
 ## Demo
 You can watch the demo of this project below:
 
-![Project Demo](public/react-hook-form-demo.mp4)
+![Project Demo](public/react-hook-form-demo.gif)
