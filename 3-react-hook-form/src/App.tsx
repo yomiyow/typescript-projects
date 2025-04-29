@@ -1,9 +1,10 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { formSchema } from './schemas/formSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import MESSAGE from './utils/messages';
+import { Eye, EyeOff } from 'lucide-react';
 import { z } from 'zod';
 
 type Form = z.infer<typeof formSchema>;
@@ -17,6 +18,9 @@ const App = (): React.JSX.Element => {
   } = useForm<Form>({
     resolver: zodResolver(formSchema),
   });
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<Form> = async (data) => {
     console.log(data);
@@ -43,8 +47,8 @@ const App = (): React.JSX.Element => {
             <input
               type="email"
               placeholder="Email"
-              className={`${(errors.email?.message === MESSAGE.REQUIRED) ? 'input input-error' : 'input'} w-full`}
               {...register('email')}
+              className={`${(errors.email?.message === MESSAGE.REQUIRED) ? 'input input-error' : 'input'} w-full`}
             />
           </label>
           {errors.email?.message === MESSAGE.INVALID_EMAIL &&
@@ -54,14 +58,25 @@ const App = (): React.JSX.Element => {
         </div>
 
         <div className="w-full">
-          <label className="floating-label">
+          <label className={`${(errors.password?.message === MESSAGE.REQUIRED) ? 'input input-error' : 'input'} floating-label`}>
             <span>Password</span>
             <input
-              type="password"
+              type={`${showPassword ? 'text' : 'password'}`}
               placeholder="Password"
-              className={`${(errors.password?.message === MESSAGE.REQUIRED) ? 'input input-error' : 'input'} w-full`}
               {...register('password')}
+              className={` w-full`}
             />
+            {(showPassword) ? (
+              <EyeOff
+                className="cursor-pointer opacity-50 size-5"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            ) : (
+              <Eye
+                className="cursor-pointer opacity-50 size-5"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            )}
           </label>
           {errors.password?.message === MESSAGE.MIN_PASSWORD &&
             <span className='text-xs text-error'>
@@ -70,14 +85,25 @@ const App = (): React.JSX.Element => {
         </div>
 
         <div className="w-full">
-          <label className="floating-label">
+          <label className={`${(errors.confirmPassword?.message === MESSAGE.REQUIRED) ? 'input input-error' : 'input'} floating-label`}>
             <span>Confirm Password</span>
             <input
-              type="password"
+              type={`${showConfirmPassword ? 'text' : 'password'}`}
               placeholder="Confirm Password"
-              className={`${(errors.confirmPassword?.message === MESSAGE.REQUIRED) ? 'input input-error' : 'input'} w-full`}
               {...register('confirmPassword')}
+              className="w-full"
             />
+            {(showConfirmPassword) ? (
+              <EyeOff
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="cursor-pointer opacity-50 size-5"
+              />
+            ) : (
+              <Eye
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="cursor-pointer opacity-50 size-5"
+              />
+            )}
           </label>
           {errors.confirmPassword?.message === MESSAGE.PASSWORDS_MUST_MATCH &&
             <span className='text-xs text-error'>
@@ -90,7 +116,7 @@ const App = (): React.JSX.Element => {
           disabled={isSubmitting}
           className='btn btn-primary w-full max-w-xs'
         >
-          {isSubmitting && <span className="loading loading-spinner" />}
+          {isSubmitting && <span className="loading loading-spinner loading-xs" />}
           {isSubmitting ? 'Submitting' : 'Submit'}
         </button>
       </form>
