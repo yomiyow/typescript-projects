@@ -8,3 +8,8 @@
 - **[Zod](https://zod.dev/)**: A TypeScript-first schema declaration and validation library.
 - **[TailwindCSS](https://tailwindcss.com/)**: A utility-first CSS framework for styling.
 - **[DaisyUI](https://daisyui.com/)**: A TailwindCSS component library for pre-styled UI components.
+
+## Demo
+You can watch the demo of this project below:
+
+![Project Demo](public/react-hook-form-demo.mp4)
